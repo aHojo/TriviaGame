@@ -1,0 +1,67 @@
+*{
+    box-sizing: border-box;
+    font-family: 'Patua One', cursive;
+}
+
+body {
+    background-color: #f7df1e;
+}
+
+div#header {
+    position: relative;
+    border: 5px dotted #e53500;
+    margin: 10px auto;
+    height: 150px;
+    width: 80%;
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
+    
+}
+
+h1#title {
+    margin-top: 50px;
+    
+}
+
+div#container {
+    border: 5px dotted #e53500;
+    margin: 50px auto;
+    width: 80%;
+    height: 600px;
+    text-align: center;
+
+}
+
+#button-cont {
+    margin: 200px auto;
+    /* display: none; */
+}
+
+#button-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#start-button {
+    margin-top: 10px;
+    background-color:  #e53500;
+    box-shadow: 2px 2px 1px #e53500;
+    border: 1px solid #e53500;
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+}
+
+#start-button:hover {
+    cursor: pointer;
+    padding: 12px;
+}
+
+#show-questions {
+    display: none;
+     border: 1px solid red;
+     margin: 40px 10px auto 10px;
+     height: 450px;
+
+}
