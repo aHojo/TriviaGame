@@ -18,11 +18,14 @@ var questions = [
 
 var randomNum;
 function displayQuestion() {
-
+    document.getElementById('show-questions').style.display = 'block';
+    var para = document.createElement('div');
+    document.getElementById('div-stuff').appendChild(para).textContent = 'hello';
 }
 
 function beginTrivia() {
     document.getElementById('button-cont').style.display = "none";
+    displayQuestion();
 }
 
 document.getElementById('start-button').addEventListener("click", beginTrivia);
