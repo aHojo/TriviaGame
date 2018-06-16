@@ -20,49 +20,70 @@ var questions = [
 ]
 var randNum;
 var count = 5;
+var correct = 0;
+var wrong = 0;
 var countVar;
-var questionSeen;
 var questionAnswered = [];
 var answerChosen = false; 
 var finshedQuestions = 0;
+var objState;
+
+function remove(array, elem){
+    var index = array.indexOf(elem);
+    if(index !== -1){
+      array.splice(index, 1);
+      return array;
+    }
+    
+  }
 
 function restartGame(){
-    if(finshedQuestions === questions.length || count === 0) {
+    if(objState.length === 0 || count === 0) {
         clearInterval(countVar);
+        correct = 0;
+        wrong = 0;
+        objState = JSON.parse(JSON.stringify(questions));
         count = 30;
         answerChosen = false;
-        questionSeen = '';
+
+        document.querySelector('.question').textContent = '';
+        document.querySelectorAll('.answer')[0].textContent = '';
+        document.querySelectorAll('.answer')[1].textContent = '';
+        document.querySelectorAll('.answer')[2].textContent = '';
+        document.querySelectorAll('.answer')[3].textContent = '';
         document.getElementById('show-questions').style.display = 'none';
         document.getElementById('countdown').style.display = "none";
         document.getElementById('countdown').textContent = 0;
         document.getElementById('button-cont').style.display = "block";
-        // questions.forEach(x => questions[i].seen = false);
 
     }
 }
 
-function winOrLose(correct = '', chosen = null) {
-    console.log(correct + chosen)
-    clearInterval(countVar);
-    answerChosen = false;
-    if(correct === chosen){
-        console.log('correct!');
-        questionAndAnswer();
-    } else {
-        console.log('NO');
-        
-        questionAndAnswer();
-    }
-}
+// function winOrLose(correct = '', chosen = null) {
+//     console.log('chosen '+ chosen);
+//     clearInterval(countVar);
+//     if(correct === chosen){
+//         console.log('correct!');
+
+//         objState = remove(objState, objState[randNum]);
+//         questionAndAnswer();
+//     } else {
+//         console.log('NO');
+//         objState = remove(objState, objState[randNum]);
+//         questionAndAnswer();
+//     }
+// }
 
 function countdown() {
     document.getElementById('countdown').style.display = "block";
     document.getElementById('countdown').textContent = count;
-    if(count === 0 ) {
+    if(count < 1 ) {
         
         // alert('LOSE')
         clearInterval(countVar)
+        wrong++;
         count = 5;
+        objState = remove(objState, objState[randNum]);
         questionAndAnswer();
     }else {
         count--;
@@ -72,62 +93,73 @@ function countdown() {
 
 function checkAnswer(e) {
     if(e.target && e.target.className === 'answer'){
-        if(!answerChosen) {
-            answerChosen = true; 
-            winOrLose(questions[randNum].correct, e.target.textContent);
+        // winOrLose(objState[randNum].correct, e.target.textContent);
+        clearInterval(countVar);
+        if(objState[randNum].correct === e.target.textContent){
+            correct++;
+            e.target.classList.add('correct');
+            objState = remove(objState, objState[randNum]);
+            setTimeout(questionAndAnswer, 300);
+        } else {
+            console.log('NO');
+            wrong++;
+            e.target.classList.add('wrong');
+            objState = remove(objState, objState[randNum]);
+            setTimeout(questionAndAnswer, 300);
         }
-    }
+    }  
 } 
     
 
 
 
 function questionAndAnswer(){
-    randNum = Math.floor(Math.random() * questions.length);
+    randNum = Math.floor(Math.random() * objState.length);
     countVar = setInterval(countdown ,1000);
-    if(parseInt(finshedQuestions) === parseInt(questions.lengh)){
+    document.getElementById('show-questions').style.display = 'block';
+    if(objState.length === 0){
         restartGame();
     }
+        
+    console.log('obj: ' + objState);
+    console.log('ques: ' + questions);
+    document.querySelector('.right-count').innerHTML = `Correct: ${correct}`;
+    document.querySelector('.wrong-count').innerHTML =  `Wrong: ${wrong}`;
+    document.querySelector('.question').textContent = objState[randNum].question;
+    document.querySelectorAll('.answer')[0].classList.remove('correct', 'wrong');
+    document.querySelectorAll('.answer')[1].classList.remove('correct', 'wrong');
+    document.querySelectorAll('.answer')[2].classList.remove('correct', 'wrong');
+    document.querySelectorAll('.answer')[3].classList.remove('correct', 'wrong');
+    document.querySelectorAll('.answer')[0].textContent = objState[randNum].answer[0];
+    document.querySelectorAll('.answer')[1].textContent = objState[randNum].answer[1];
+    document.querySelectorAll('.answer')[2].textContent = objState[randNum].answer[2];
+    document.querySelectorAll('.answer')[3].textContent = objState[randNum].answer[3];
+    finshedQuestions++;
 
-    if(!questions[randNum].seen){
-        document.querySelector('.question').textContent = questions[randNum].question;
-        document.querySelectorAll('.answer')[0].textContent = questions[randNum].answer[0];
-        document.querySelectorAll('.answer')[1].textContent = questions[randNum].answer[1];
-        document.querySelectorAll('.answer')[2].textContent = questions[randNum].answer[2];
-        document.querySelectorAll('.answer')[3].textContent = questions[randNum].answer[3];
-        questions[randNum].seen = true;
-        finshedQuestions++;
-    }
-    
-
-    
 }
 
-function displayQuestion() {
-    document.getElementById('show-questions').style.display = 'block';
-    var para = document.createElement('div');
-    console.log(questions[0].question);
-    for(let i = 0; i < 1; i++){
-        var ques = document.createElement('div');
-        ques.classList.add("question")
-        document.getElementById('div-stuff').appendChild(ques);
-    }
+// function displayQuestion() {
+//     document.getElementById('show-questions').style.display = 'block';
+//     var para = document.createElement('div');
+//     for(let i = 0; i < 1; i++){
+//         var ques = document.createElement('div');
+//         ques.classList.add("question")
+//         document.getElementById('div-stuff').appendChild(ques);
+//     }
 
-    for(let i = 0; i < 4; i++){
-        var para = document.createElement('div');
-        para.classList.add("answer")
-        document.getElementById('div-stuff').appendChild(para);
-    }
+//     for(let i = 0; i < 4; i++){
+//         var para = document.createElement('div');
+//         para.classList.add("answer")
+//         document.getElementById('div-stuff').appendChild(para);
+//     }
     
-    questionAndAnswer();
-}
+//     questionAndAnswer();
+// }
 
 function beginTrivia() {
     document.getElementById('button-cont').style.display = "none";
-    
-
-    
-    displayQuestion();
+    objState = JSON.parse(JSON.stringify(questions));
+    questionAndAnswer();
 }
 
 document.getElementById('countdown').style.display = "none";

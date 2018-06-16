@@ -4,12 +4,14 @@
 }
 
 body {
-    background-color: #f7df1e;
+    background: url('../background.png');
+   color: white;
+    
 }
 
 div#header {
     position: relative;
-    border: 5px dotted #e53500;
+    border: 5px solid #e53500;
     margin: 10px auto;
     margin-bottom: 30px;
     height: 150px;
@@ -17,6 +19,11 @@ div#header {
     text-align: center;
     font-size: 32px;
     font-weight: bolder;
+    background: lightsteelblue;
+
+    -moz-box-shadow:   inset 0 0 10px red;
+   -webkit-box-shadow: inset 0 0 10px red;
+   box-shadow:         inset 0 0 10px red;
     
 }
 
@@ -26,11 +33,17 @@ h1#title {
 }
 
 div#time-class {
-    border: 5px dotted #e53500;
+    border: 5px solid #e53500;
     margin: auto;
     width: 80%;
     height: 100px;
     text-align: center;
+    font-size: 18px;
+    background: lightsteelblue;
+
+    -moz-box-shadow:   inset 0 0 10px red;
+   -webkit-box-shadow: inset 0 0 10px red;
+   box-shadow:         inset 0 0 10px red;
 }
 
 div#countdown {
@@ -38,17 +51,22 @@ div#countdown {
 }
 
 div#container {
-    border: 5px dotted #e53500;
+    border: 5px solid #e53500;
     margin: 50px auto;
     width: 80%;
     height: 600px;
     text-align: center;
+    background: lightsteelblue;
+
+    -moz-box-shadow:    inset 0 0 10px red;
+   -webkit-box-shadow: inset 0 0 10px red;
+   box-shadow:         inset 0 0 10px red;
 
 }
 
 #button-cont {
     margin: 200px auto;
-    /* display: none; */
+    display: block;
 }
 
 #button-header {
@@ -72,9 +90,60 @@ div#container {
 }
 
 #show-questions {
+    position: relative;
     display: none;
-     border: 1px solid red;
+     /* border: 1px solid red; */
      margin: 40px 10px auto 10px;
      height: 450px;
 
+}
+#div-stuff {
+    clear: both;
+    margin: 0 auto;
+}
+
+.qA-cont {
+    /* border:1px solid red; */
+    font-size: 18px;
+    width: 50%;
+    margin: 0 auto;
+    /* position: absolute;
+    top: 30%;
+    left:30%; */
+}
+.answer-container{
+    /* border: 1px solid red; */
+    margin-top: 10px;
+    
+}
+div.answer {
+    padding: 5px;
+    border-bottom: 1px solid red;
+    width: 90%;
+    margin: 0 auto;
+}
+div.answer:hover {
+    background: #D2CBCB;
+    
+}
+
+.correct {
+    background: green !important;
+}
+.wrong {
+    background: red !important;
+}
+
+.right-count {
+    float:left;
+    border: 1px solid red;
+    padding: 2px 8px 2px 8px;
+    margin-left: 37%;
+    margin-bottom: 50px;
+}
+
+.wrong-count {
+    float: left;
+    border: 1px solid red;
+    padding: 2px 8px 2px 8px;
 }
